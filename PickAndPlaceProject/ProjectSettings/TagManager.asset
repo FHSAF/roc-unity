@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - robot
+  - Target
+  - Tool
   layers:
   - Default
   - TransparentFX

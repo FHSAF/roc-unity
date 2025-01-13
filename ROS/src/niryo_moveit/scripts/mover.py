@@ -3,7 +3,6 @@
 from __future__ import print_function
 
 import rospy
-
 import sys
 import copy
 import math
@@ -29,7 +28,7 @@ if sys.version_info >= (3, 0):
 else:
     def planCompat(plan):
         return plan
-        
+
 """
     Given the start angles of the robot, plan a trajectory that ends at the destination pose.
 """
@@ -56,18 +55,38 @@ def plan_trajectory(move_group, destination_pose, start_joint_angles):
 
 
 """
-    Creates a pick and place plan using the four states below.
-    
-    1. Pre Grasp - position gripper directly above target object
-    2. Grasp - lower gripper so that fingers are on either side of object
-    3. Pick Up - raise gripper back to the pre grasp position
-    4. Place - move gripper to desired placement position
+    Plan a trajectory for the assembly pose given joint angles.
+"""
+def plan_to_assembly_pose(move_group, assembly_joint_angles, start_joint_angles):
+    current_joint_state = JointState()
+    current_joint_state.name = joint_names
+    current_joint_state.position = start_joint_angles
+
+    moveit_robot_state = RobotState()
+    moveit_robot_state.joint_state = current_joint_state
+    move_group.set_start_state(moveit_robot_state)
+
+    move_group.set_joint_value_target(assembly_joint_angles)
+    plan = move_group.plan()
+
+    if not plan:
+        exception_str = """
+            Trajectory could not be planned for an assembly pose with starting joint angles {}.
+        """.format(start_joint_angles)
+        raise Exception(exception_str)
+
+    return planCompat(plan)
+
+
+"""
+    Creates a pick and place plan using the following steps:
+    1. Assembly Pose (optional)
+    2. Pre Grasp
+    3. Grasp
+    4. Pick Up
+    5. Place
 
     Gripper behaviour is handled outside of this trajectory planning.
-        - Gripper close occurs after 'grasp' position has been achieved
-        - Gripper open occurs after 'place' position has been achieved
-
-    https://github.com/ros-planning/moveit/blob/master/moveit_commander/src/moveit_commander/move_group.py
 """
 def plan_pick_and_place(req):
     response = MoverServiceResponse()
@@ -77,10 +96,9 @@ def plan_pick_and_place(req):
 
     current_robot_joint_configuration = req.joints_input.joints
 
-    # Pre grasp - position gripper directly above target object
+    # Pre Grasp - position gripper directly above target object
     pre_grasp_pose = plan_trajectory(move_group, req.pick_pose, current_robot_joint_configuration)
     
-    # If the trajectory has no points, planning has failed and we return an empty response
     if not pre_grasp_pose.joint_trajectory.points:
         return response
 
@@ -88,21 +106,29 @@ def plan_pick_and_place(req):
 
     # Grasp - lower gripper so that fingers are on either side of object
     pick_pose = copy.deepcopy(req.pick_pose)
-    pick_pose.position.z -= 0.05  # Static value coming from Unity, TODO: pass along with request
+    pick_pose.position.z -= 0.05  # Static value for lowering the gripper
     grasp_pose = plan_trajectory(move_group, pick_pose, previous_ending_joint_angles)
-    
+
     if not grasp_pose.joint_trajectory.points:
         return response
 
     previous_ending_joint_angles = grasp_pose.joint_trajectory.points[-1].positions
 
-    # Pick Up - raise gripper back to the pre grasp position
+    # Pick Up - raise gripper back to the original pick pose
     pick_up_pose = plan_trajectory(move_group, req.pick_pose, previous_ending_joint_angles)
-    
+
     if not pick_up_pose.joint_trajectory.points:
         return response
 
     previous_ending_joint_angles = pick_up_pose.joint_trajectory.points[-1].positions
+
+    # Assembly Pose - Move to a predefined configuration
+    assembly_pose = plan_to_assembly_pose(move_group, req.assembly_pose.joints, previous_ending_joint_angles)
+    
+    if not assembly_pose.joint_trajectory.points:
+        return response
+
+    previous_ending_joint_angles = assembly_pose.joint_trajectory.points[-1].positions
 
     # Place - move gripper to desired placement position
     place_pose = plan_trajectory(move_group, req.place_pose, previous_ending_joint_angles)
@@ -110,10 +136,11 @@ def plan_pick_and_place(req):
     if not place_pose.joint_trajectory.points:
         return response
 
-    # If trajectory planning worked for all pick and place stages, add plan to response
+    # If trajectory planning worked for all pick and place stages, add plans to response
     response.trajectories.append(pre_grasp_pose)
     response.trajectories.append(grasp_pose)
     response.trajectories.append(pick_up_pose)
+    response.trajectories.append(assembly_pose)  # Assembly Pose added after Pick Up
     response.trajectories.append(place_pose)
 
     move_group.clear_pose_targets()
