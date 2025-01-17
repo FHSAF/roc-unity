@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="mqtt_bridge_package" type="mqtt_node.py" name="mqtt_node" output="screen" />
+</launch>
