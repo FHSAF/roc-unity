@@ -15,7 +15,7 @@
 
 # Ignore scripts that are expected to get copied in at some point
 /**/SourceDestinationPublisher.*
-/**/TrajectoryPlanner.*
+# /**/TrajectoryPlanner.*
 /**/RealSimPickAndPlace.*
 
 
