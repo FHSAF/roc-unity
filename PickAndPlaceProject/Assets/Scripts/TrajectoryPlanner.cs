@@ -216,6 +216,11 @@ public class TrajectoryPlanner : MonoBehaviour
                 // Check for halt condition and pause execution until resumed
                 while (isHalted)
                 {
+                    Debug.Log($"Execution halted at poseIndex={poseIndex}, trajIndex={trajIndex}");
+                    haltedPoseIndex = poseIndex;
+                    haltedTrajectoryIndex = trajIndex;
+                    haltedResponse = response; // Save response for resumption
+
                     yield return null; // Wait for the next frame while the robot is halted
                 }
 
@@ -288,7 +293,7 @@ public class TrajectoryPlanner : MonoBehaviour
                     }
 
                     Debug.Log("Resuming execution...");
-                    trajectoryCoroutine = StartCoroutine(ExecuteTrajectories(haltedResponse, reverse: false)); // Resume forward execution
+                    trajectoryCoroutine = StartCoroutine(ExecuteTrajectories(haltedResponse)); // Resume forward execution
                 }
                 else
                 {
@@ -313,7 +318,7 @@ public class TrajectoryPlanner : MonoBehaviour
                 if (isHalted && haltedResponse != null)
                 {
                     Debug.Log("Starting reverse trajectory execution...");
-                    trajectoryCoroutine = StartCoroutine(ExecuteTrajectories(haltedResponse, reverse: true)); // Start reverse trajectory execution
+                    trajectoryCoroutine = StartCoroutine(ExecuteTrajectories(haltedResponse)); // Start reverse trajectory execution
                 }
                 else
                 {
