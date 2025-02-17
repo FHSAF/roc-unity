@@ -25,7 +25,7 @@ public class MQTTHandler : MonoBehaviour
 
         mqttOptions = new MqttClientOptionsBuilder()
             .WithClientId("UnityClient")
-            .WithTcpServer("192.168.0.101", 1883) // Replace with your broker's IP and port
+            .WithTcpServer("192.168.0.229", 1883) // Replace with your broker's IP and port
             .Build();
 
         ConnectToBroker();

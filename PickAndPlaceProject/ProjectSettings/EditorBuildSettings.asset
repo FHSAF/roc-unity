@@ -11,4 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayMode/PlayModeTestScenes/TargetPlacementTest.unity
     guid: 3d328f38f71b71e47bb8d96869012ffe
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d5b3225ad2f08b24fa0236c334894eda, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2e2737d38208ce244bbc5e39797ea96e, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: c8495b1e36aaa9849a6359229a3ec1cc, type: 2}
+  m_UseUCBPForAssetBundles: 0
