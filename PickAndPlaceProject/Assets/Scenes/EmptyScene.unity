@@ -2624,7 +2624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a363257c5d2b458e03a64ea92e0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 221457140}
 --- !u!1 &594765585 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7412300124722358419, guid: b5285d56c80284484bba2f4cb57d5f2d, type: 3}
@@ -3567,8 +3566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6844b5ac40058954a8ac937298c515a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  publishButton: {fileID: 1366079282}
-  subscribeButton: {fileID: 2146214826}
 --- !u!1 &699796205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,7 +3736,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 706185689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c186cb362361aa439caecd6b13713c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b18c5a2fb8d86c4687cbcc280b3adbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TopicName: /niryo_joints
@@ -3770,7 +3767,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 706185689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 911b3adbf7760834281b85f057e466fb, type: 3}
+  m_Script: {fileID: 11500000, guid: d6926204eff35c243ae4ac6af86e4e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_RosServiceName: niryo_moveit
@@ -5242,10 +5239,10 @@ Canvas:
   m_GameObject: {fileID: 1050771886}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1567831102}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -6707,7 +6704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a363257c5d2b458e03a64ea92e0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 1408172969}
 --- !u!23 &1408172971
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9839,7 +9835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a363257c5d2b458e03a64ea92e0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 1459013309}
 --- !u!23 &1459013311
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11420,7 +11415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a363257c5d2b458e03a64ea92e0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoint: {fileID: 1699160540}
 --- !u!23 &1699160542
 MeshRenderer:
   m_ObjectHideFlags: 0

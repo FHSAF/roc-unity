@@ -4,15 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 0
-    path: Assets/Tests/PlayMode/PlayModeTestScenes/TargetPlacementTest.unity
-    guid: 3d328f38f71b71e47bb8d96869012ffe
-  - enabled: 1
-    path: Assets/Tests/PlayMode/PlayModeTestScenes/TargetPlacementTest.unity
-    guid: 3d328f38f71b71e47bb8d96869012ffe
+  m_Scenes: []
   m_configObjects:
-    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d5b3225ad2f08b24fa0236c334894eda, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2e2737d38208ce244bbc5e39797ea96e, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: c8495b1e36aaa9849a6359229a3ec1cc, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d85407bc21e7c1948b97e5ecdf602d88, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f513f46d32e8e6b4d902f6c1d9c7e798, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f23bab6412fb6444dbcc632f42a2641f, type: 2}
   m_UseUCBPForAssetBundles: 0
